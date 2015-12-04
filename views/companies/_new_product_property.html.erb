@@ -1,0 +1,28 @@
+<% if !params[:type_id].nil? %>
+	<% property_type_id = params[:type_id] %>
+<% end %>
+<% if (defined?(product_properties)).nil? %>
+	<% product_properties = @product_properties %>
+<% end %>
+
+<% if !product_properties.nil? %>
+	
+		<%= link_to '+', new_product_property_companies_path(property_type_id), :remote => true, :class => 'add-remove-btn' %>	
+	<% product_properties.each do |pp| %>
+			<%= simple_form_for pp,url:product_property_save_companies_path(pp.id), remote: true, :html => {:id => "form-new-property-"+pp.id.to_s , :class => "brands-form" } do |f| %>
+	        	<div class="form-group">
+	          		<%= f.input_field :name, inline_label:"Name", required: true, autofocus: true,class:"w294px product_property_name", :'data-value' => pp.id, :onblur => "call_form_new_product_property_save($(this).attr('data-value'))" %><a class="add-remove-btn v-align-action-btn remove_property_type"  href="javascript:void(0)" >-</a>
+	          		<%= link_to '-', product_property_destroy_companies_path(pp.id), method: :delete, data: { confirm: 'Are you sure?' }, :remote => true, class: 'add-remove-btn v-align-action-btn' %>
+	        	</div>
+
+	      	<% end %>		
+							
+		
+	<% end %>
+	
+<% else %>
+	<%= link_to '+', new_product_property_companies_path(property_type_id), :remote => true, :class => 'add-remove-btn' %> No Properties are available
+<% end %>
+
+
+

@@ -1,0 +1,72 @@
+<% if current_user.has_role? :admin %>
+    <div class="col-xs-2 sidebar-right">  
+     <div class="customer-filter">
+      <ul class="list-unstyled">
+        <li class="active-filter main-menu">
+          <%= link_to 'All', 'javascript:void(0)', {'id' => 'brands-listing-all'} %>
+        </li> 
+        <li class="active-filter main-menu">
+          <%= link_to 'Non Published', 'javascript:void(0)', {'id' => 'brands-listing-unpublish'} %>
+        </li>
+       </ul>
+      </div>
+    </div>
+<% else %>    
+  <div class="col-xs-2 sidebar-right">  
+    <div class="customer-filter">
+      <ul class="list-unstyled">
+        <li class="active-filter main-menu">
+          <%= link_to 'All', 'javascript:void(0)', {'id' => 'brands-listing-all'} %>
+        </li>
+        <li class="active-filter main-menu">
+          <%= link_to 'Owned Suppliers', 'javascript:void(0)', {'id' => 'brands-listing-own'} %>
+          <ul class="list-unstyled show_hide">
+            <% if current_user.company.own_brands.count > 0 %>
+              <% current_user.company.own_brands.each do |brand| %>
+                <% if brand.brand_type == 'single'%>
+                 <li> <%= link_to brand.title, performance_brand_path(brand) %></li> 
+                <% else %>  
+                    <li> <%= link_to brand.title, performance_brand_path(brand) %></li>  
+              <% end %>
+              <% end %>
+            <% else %>
+              <p> No Supplier Found </p>
+            <% end %>
+          </ul>
+        </li>
+        <li class="active-filter main-menu">
+          <%= link_to 'Partner Suppliers', 'javascript:void(0)', {'id' => 'brands-listing-partner'} %>
+          <ul class="list-unstyled show_hide">
+            <% if current_user.company.partner_brands.count > 0 %>
+              <% current_user.company.partner_brands.each do |brand| %>
+               <% if brand.brand_type == 'single'%>
+                 <li> <%= link_to brand.title, performance_brand_path(brand) %></li> 
+                <% else %>  
+                    <li><%= link_to brand.title, performance_brand_path(brand) %></li>  
+              <% end %>   
+              <% end %>
+            <% else %>
+              <p>No Supplier Found</p>
+            <% end %>
+          </ul>
+        </li> 
+        <li class="active-filter main-menu">
+          <%= link_to 'Non Published', 'javascript:void(0)', {'id' => 'brands-listing-unpublish'} %>
+          <ul class="list-unstyled show_hide">
+            <% if current_user.company.unpublished_brands.count > 0 %>
+              <% current_user.company.unpublished_brands.each do |brand| %>
+                  <% if brand.brand_type == 'single'%>
+                     <li> <%= link_to brand.title, edit_brand_path(brand) %></li> 
+                  <% else %>  
+                    <li> <%= link_to brand.title, edit_brand_group_path(brand) %></li>  
+                  <% end %>   
+              <% end %>
+            <% else %>
+              <p>No Supplier Found</p>
+            <% end %>
+          </ul>
+        </li>  
+      </ul>
+    </div>
+  </div>
+<% end %>  

@@ -1,0 +1,107 @@
+<div class="brands-form-row clearfix">
+      
+      <div class="pull-left img-caption form-images-container rounded_image no_left_right_padding" id="company-logo">
+        <%= render partial: 'form_logo', locals: {logo: !@company.logo.blank?} %>
+        <div id="company-logo-show-container">
+          <% if !@company.logo.blank? %>
+            <%= render partial: 'logo', locals: {logo: @company.logo.first} %>
+          <% end %>
+        </div>
+      </div>
+ 
+      <div class="tablet-margin-fix form-images-container img-caption pull-left" id="company-images">
+       <%= render partial: 'form_images', locals: {images: @company.images} %>
+      </div>
+
+  <%= simple_form_for @company, :html => { :multipart => true, :class=>"brands-form" } do |f| %>
+    
+      <div class="col-xs-3">
+          <div class="form-group">
+            <%= f.input :name, label:"Name", autofocus: true, placeholder:"Name" %>
+          </div>
+      </div> 
+    <div class="clearfix frm-line pull-left"></div>
+    <ul class="nav nav-tabs" role="tablist" id="shipping-tabs">
+        <li role="presentation" class="active"><a href="#brand-address-tab" aria-controls="brand-address-tab" role="tab" data-toggle="tab"><span class="tab-count">1</span>Address</a></li>
+    </ul>
+    <div class="tab-content">
+        <div role="tabpanel" class="tab-pane active" id="brand-address-tab">
+          <div class="col-sm-12 no_left_right_padding">
+            <div class="col-xs-2 no_left_right_padding">
+              <%= f.input :address_1, label:' Address Line1' %>
+              <%= f.input :address_2, label:' Address Line2' %>
+              <%= f.input :address_3, label:' Address Line3' %>
+            </div>
+            <div class="col-xs-2 no_left_right_padding contact-info-frm">
+              <label for="country">  Country</label>
+              <%= f.country_select :country, priority: %w(US CA), prompt: 'Please select a country' %>
+              <div id="company_state_code_wrapper">
+                <%= render partial: 'subregion_select', locals: {parent_region: f.object.country} %>
+              </div>
+              <%= f.input :city, label:' City' %>
+            </div>
+            <div class="col-xs-2 no_left_right_padding">
+              <%= f.input :zip, label:' Zip' %>
+              <%= f.input :phone_no, label:' Phone' %>
+              <%= f.input :fax, label:' Fax' %>
+
+            </div>
+            <%= f.hidden_field :user_id %>
+          </div>
+        </div>
+  <% end %>
+        
+  </div>
+  <div class="clearfix frm-line pull-left"></div>
+  <p>Sub Accounts</p>
+  <div id="sub_companies_tab">
+    <a href="javascript:void(0)" id="add_new_sub_company" class="add-remove-btn">+</a>
+    <div id="sub_companies_container">
+      <% if !@sub_companies.nil? %>
+        <% @sub_companies.each do |sc| %>
+          <%= render partial: 'sub_companies/form', locals: {sub_company: sc} %>
+        <% end %>
+      <% end %>
+    </div>   
+  </div>    
+</div>
+<div class="modal fade " id="form_new_sub_company_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog w294px">
+    <div class="modal-content">
+      <%= simple_form_for 'sub_company', url:sub_companies_path, remote: true, :html => {:id => "form_new_sub_company" , :class => "brands-form" } do |f| %>
+       <div class="error_message"></div>
+        <%= f.hidden_field :company_id %>
+        <div class="form-group">
+          <label>Name</label>
+         
+          <%= f.input_field :name, inline_label:"Name", required: true, autofocus: true, :id => "alert_title" %>
+  
+        </div>
+        <div class="modal-footer">
+          <%= f.button :submit, 'Save', class: 'btn btn-primary ' %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<script>
+  $('.modal').on('shown.bs.modal', function () {
+    lastfocus = $(this);
+    $(this).find('input:text:visible:first').focus();
+  });
+  if ($("#add_new_sub_company").length) {
+     $("#add_new_sub_company").click(function() {
+      $("#alert_title").attr("placeholder", "New Sub Company Name");
+      $("#alert_title").val("");
+      $("#form_new_sub_company_modal").modal("show");
+    });
+  }
+  function call_to_form_sub_company_save(form_id){
+    form_sub_company_save(form_id);
+  }
+</script>
+<script>
+  var active_form = "Company";
+  var company_id = <%= @company.id %>;
+</script>

@@ -1,0 +1,42 @@
+ <div class="col-xs-2 sidebar-right pull-right">  
+    <div class="customer-filter">
+      <ul class="list-unstyled">
+       <% if current_user.has_role? :brandmanager %>
+          <li class="active-filter main-menu">
+            <%= link_to 'Account', edit_company_path(current_user.company) %>
+          </li>
+          <li class="active-filter main-menu">
+            <%= link_to 'Currency', users_currencies_path %>
+          </li>
+          <li class="active-filter main-menu">
+            <%= link_to 'Tax', users_tax_path %>
+          </li>
+          <li class="active-filter main-menu">
+            <%= link_to 'Shipments', users_shipments_path %>
+          </li> 
+          <li class="active-filter main-menu">
+            <%= link_to 'Roles', users_settings_path %>
+          </li>
+          <li class="active-filter main-menu">
+            <%= link_to 'Product Properties', product_properties_settings_companies_path %>
+          </li>
+          <li class="active-filter main-menu">
+            <%= link_to 'Product Personalization Forms', personalization_forms_companies_path %>
+          </li>
+          <li class="active-filter main-menu">
+            <%= link_to 'Fee Addition Forms', fee_audition_forms_companies_path %>
+          </li>
+          <li class="active-filter main-menu">
+            <%= link_to 'Suggested Brands', suggested_brands_path %>
+          </li>
+        <% end %>  
+          <li class="active-filter main-menu">
+            <%= link_to 'Edit Profile', users_profile_path %>
+          </li>
+          <li class="active-filter main-menu">
+            <%= link_to "Change your password", edit_user_registration_path %>
+          </li>
+      </ul>
+    </div>
+  </div>
+ 

@@ -1,0 +1,73 @@
+
+<div class="navbar navbar-fixed-top custom-nv" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header col-sm-3 col-md-2 no_padding">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#"> <%=image_tag 'nutonia_logo.png' %></a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse custom-navbar clearfix">
+            <ul class="nav navbar-nav navbar-right">
+              <li class="dropdown">
+                <%= link_to dropdown_notifications_path, { remote: true } do %>
+                  <div class="notification-cont"><span class="notification-bell"></span><span class="notification-count"></span><span class="caret custom-dwn-arrow"></span></div>
+                <% end %>
+                <ul class="dropdown-menu notification-menu" role="menu">
+                  <li><%= image_tag 'loading.gif' %></li>
+                  <li class="divider"></li>
+                  <li><a class="viewall_notifications" href="<%= notifications_path %>">View all</a></li>
+                  <!-- <li><a href="#"><%= image_tag '140x128.gif' %><p>Sample text<br /><span class="italic">12:00</span></p></a></li>
+                  <li class="divider"></li>
+                  <li><a href="#"><%= image_tag '140x128.gif' %><p>Sample text<br /><span class="italic">12:00</span></p></a></li>
+                  <li class="divider"></li>
+                  <li><a href="#"><%= image_tag '140x128.gif' %><p>Sample text<br /><span class="italic">12:00</span></p></a></li>
+                  <li class="divider"></li>
+                  <li><a href="#"><%= image_tag '140x128.gif' %><p>Sample text<br /><span class="italic">12:00</span></p></a></li>
+                  <li class="divider"></li>
+
+                  <li><a class="viewall_notifications" href="<%#= notifications_index_path %>">View all</a></li>
+
+                  <li><a class="viewall_notifications" href="<%= notifications_path %>">View all</a></li> -->
+
+                </ul>
+              </li>
+
+              <li class="dropdown logout-list">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Good Afternoon! <% if user_signed_in? %> <%= current_user.full_name.split(/\s+/).map(&:first).join('.').upcase %> <% else %> <%="Admin" %> <% end %><!--<span class="signal_icon"></span>--></a>
+                
+                <ul class="dropdown-menu logout-menu" role="menu">
+                    <% if user_signed_in? %>
+                         <li><%= link_to "Log out", destroy_session_path(:user), :method => :delete %></li>
+                        <!--<li><%= link_to "Change your password", edit_user_registration_path %></li>-->
+                    <% end %>
+                </ul>
+              </li>
+            </ul>
+            <h3 class="page-title pull-left"><%= @title || '' %></h3>
+            <% if (request.fullpath == brands_path) || (request.fullpath == products_path) || (request.fullpath == customers_path) || (request.fullpath == rewards_path) || (request.fullpath == stores_path) %> 
+              <div id="<%= 
+                  case request.fullpath 
+                    when brands_path  
+                      "brands-search-form" 
+                    when products_path 
+                      "products-search-form"
+                    when customers_path 
+                      "customers-search-form"
+                    when stores_path 
+                      "stores-search-form"
+                    when rewards_path 
+                      "rewards-search-form"     
+                    else ""
+                    end %>" class="pull-right search text-right search-form">
+
+                  <input type="text" name="search_field" id="search_field" placeholder="search here" />
+                  <input type="button" value="" />
+              </div>
+            <% end %>
+        </div>
+    </div>
+</div>

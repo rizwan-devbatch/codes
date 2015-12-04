@@ -1,0 +1,35 @@
+
+<%= simple_form_for Image.new, :url => images_companies_path, html: {:id => "brand-images-form", :style => (images.count >= 3) ? 'display:none' : 'display:block'} do |f| %>
+    <%= hidden_field_tag :id, @company.id %>
+    <div class="file-upload-image-container">
+        <%= f.file_field :image, required: true, multiple: true, name: 'image[image]', class: 'brand-file-input' %>
+        <input type="button" class="file_upload_btn" value="Upload Image" >   
+    </div>
+    <div class="progress-wrapper">
+      <p>Bitrate: <span class="bitrate"></span></p>
+      <div class="progress">
+        <div class="progress-bar" role="progressbar">
+          0%
+        </div>
+      </div>
+    </div>
+<% end %>
+  <div class="form-images-inner">
+    <div id="myCarousel" class="carousel slide">
+      <div class="carousel-inner" style="height: 157px; width: 236px">
+        <% j=0 %>
+        <% images.each do |image| %>
+          <%= render partial: "companies/images", locals: {image: image, active: (j==0) } %>
+          <% j = 1 %>
+        <% end %>
+      </div>
+      <!-- Indicators -->
+      <ol class="carousel-indicators">
+        <% for i in 0..images.count-1 %>
+          <li data-target="#myCarousel" data-slide-to="<%= i %>"><%= i+1 %></li>
+        <% end %>
+      </ol>
+    </div>
+ </div>
+
+ 

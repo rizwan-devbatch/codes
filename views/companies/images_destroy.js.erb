@@ -1,0 +1,17 @@
+$("figure#company-image-<%= params[:id] %>-<%= params[:image_id] %>").remove();
+$('ol.carousel-indicators li:last-child').remove();
+
+<% if @company.images.count == 0 %>
+	$('#myCarousel').removeClass('slide');
+<% end %>
+<% if @company.images.count > 0 %>
+	$('#myCarousel .carousel-inner figure:first-child').addClass('active');
+<% end %>
+
+<% if @company.images.count < 3 %>
+	$("#company-images-form").show();
+<% end %>
+
+<% if @company.images.count > 1 %>
+	$('.carousel').carousel({interval: 2000});
+<% end %>

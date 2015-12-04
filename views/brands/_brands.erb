@@ -1,0 +1,33 @@
+<div class="customer-list height-custom">
+    <% if brands.count > 0 %>
+        <% 
+            pg_brands = Array.new
+            brand_groups.each do |b| 
+                pg_brands << b.id
+            end
+        %>
+        <% current_user.company.single_brands.each do |brand| %>
+            <div class="customer pull-left">
+                <div class="customer-inner-content customer-inner-content-height-custom position-ralative">
+                    <input type="checkbox" name="brands[]" value="<%= brand.id %>" class="popup-brands" <%="checked='checked'" if pg_brands.include?(brand.id) %> />
+                    <label class="checkbox" for="user_remember_me">
+                        <span class="checkbox-bg"></span>
+                    <% image = brand.logo.first %>
+                    <% if !image.nil? %>
+                        <%= image_tag(image.image.remote_url, class: '') %>
+                    <%  else %>
+                        <%= image_tag '142x188.gif' %>
+                    <% end %>
+                    </label>
+                    <div class="customer-detail">
+                        <div class="clearfix">
+                            <div class="pull-left"><%= link_to brand.title, edit_brand_path(brand) %></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <% end %>
+    <% else %>
+        <p>No brand available!</p>
+    <% end %>
+</div>

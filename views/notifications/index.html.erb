@@ -1,0 +1,26 @@
+<div class="customer-list">
+    <%@notifications.each do |notification|%>
+    	<div class="customer pull-left">
+            <div class=" notifications customer-inner-content">
+            	<a href="<%= polymorphic_path(notification.notifiable, action: 'performance') %>">
+                    <% image = notification.notifiable.images.first %>
+                    <% if !image.nil? %>
+                        <%= image_tag(image.image.remote_url, class: '') %>
+                    <%  else %>
+                      <%= image_tag '236x157.gif' %>
+                    <% end %>
+                </a>
+            	<div class="customer-detail">
+    	            <div class="clearfix">
+    	                <div class="pull-left"><a href="<%= polymorphic_path(notification.notifiable, action: 'performance')%>"><%= notification.notifiable.title%></a> <%=notification.message%></div>
+    	            </div>
+    	        </div>
+    	        <div class="show_notifytime italic"><%= time_ago_in_words(notification.created_at) %></div>
+            </div>
+        </div>
+    <%end%>
+    
+</div>
+<div class="row brands-list-paginate-ajax" style="align:right;">
+    <%= will_paginate @notifications, renderer: BootstrapPagination::Rails %>
+</div>

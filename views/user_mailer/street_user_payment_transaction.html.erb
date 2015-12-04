@@ -1,0 +1,50 @@
+<h3>Dear <%= @user.name %>!</h3>
+<p><b><%= @message %></b></p>
+<p>---------------------------------------------------------</p>
+<%
+	order = @order
+%>
+<% if order %>
+<%
+	account_name = "N/A"
+	store_id = "N/A"
+	store = Store.find_by_id(order[:store_id])
+	if !store.nil?
+		store_id = store.id
+		account = store.sub_company
+		if !account.nil?
+			account_name = account.name
+		end
+	end
+	
+%>
+<p>Merchant: <%=  account_name %>(<%=  store_id %>)</p>
+<p>Order ID: <%= order[:id] %></p>
+<p>Order Total: <%= order[:total] %></p>
+<p>Payment: Completed</p>
+<p>Customer Name: <%= order[:user_name] %>(<%= order[:user_id] %>)</p>
+<p>Email: <%= order[:user_email] %></p>
+<p>Phone: <%= order[:user_phone] %></p>
+<p>Delivery Address: <%= order[:delivery_address] %></p>
+<p>Delivery Type: <%= order[:delivery_type] %> <%= order[:rate] %></p>
+
+<% items = order[:items]
+	items.each do |item| %>
+	<% product_total = item[:quantity].to_f*item[:price].to_f %>
+	<p><%= item[:product_title]+" "+item[:quantity].to_s+" * "+ item[:price].to_s+" = "+product_total.to_s %></p>
+	<p>Addons:</p>
+	<% addons = item[:product_addons] 
+		if addons.count
+			addons.each do |addon| %>
+			<p><%= addon[:product_title]+" "+addon[:price].to_s%></p>
+			<%
+			end
+		end
+	%>
+<%
+	end
+%>
+<p>---------------------------------------------------------</p>
+<% end %>
+<p>Keep Well,</p>
+<p>Street Scouts</p>

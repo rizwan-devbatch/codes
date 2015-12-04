@@ -1,0 +1,20 @@
+
+  <div id="company-logo-form-container" class="file-input-logo" <%= 'style=display:none' if logo %>>
+    <%= simple_form_for Image.new, :url => logo_companies_path, html: {:id => "company-logo-form"} do |f| %>
+      <%= hidden_field_tag :id, @company.id %>
+      <div class="form-group">
+           <%= f.file_field :image, required: true, multiple: true, name: 'image[image]', class: 'logo-file-input' %>
+          <input type="button" class="file_upload_btn w94px" value="Upload Logo" >
+    
+      </div>
+      <div class="progress-wrapper">
+        <p>Bitrate: <span class="bitrate"></span></p>
+        <div class="progress">
+          <div class="progress-bar" role="progressbar">
+            0%
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+ 

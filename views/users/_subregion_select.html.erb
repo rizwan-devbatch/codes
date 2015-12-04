@@ -1,0 +1,17 @@
+<% parent_region ||= params[:parent_region] %>
+
+	<% country = Carmen::Country.coded(parent_region) %>
+
+	<% if country.nil? %>
+	    <label> State</label>
+	    <%= text_field(:company, :state, :placeholder => "state") %>
+	<% elsif country.subregions? %>
+	    <label> State</label>
+	    <%= subregion_select(:company, :state, parent_region) %>
+	<% else %>
+	    <label> State</label>
+	    <%= text_field(:company, :state) %>
+	<% end %>
+
+	<script>
+	</script>

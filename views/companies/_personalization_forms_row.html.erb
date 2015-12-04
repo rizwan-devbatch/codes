@@ -1,0 +1,44 @@
+<tr id="personalization_parent_row_<%= personalization_button.id %>">
+	<td><%= link_to '-', personalization_button_path(personalization_button.id), method: :delete, data: { confirm: 'Are you sure?' }, :remote => true, class: 'add-remove-btn' %></td>
+	<td>
+		<%= simple_form_for personalization_button, :html => {:class=>"brands-form settings" } do |f| %>
+			<%= f.input :title, label: false,placeholder:"Button Title", :input_html => {:'data-value' => personalization_button.id }%>
+			<div class="relative-radio-outer full_width">
+	          <%= f.check_box :mandatory, class:"checkbox-hide", :'data-value' => personalization_button.id %>
+	          <label class="checkbox" for="">
+	            <span class="checkbox-bg"></span>Is Mandatory
+	          </label>
+          	</div>
+          	<%= f.input :price, label: false,placeholder:"Price", :input_html => {:'data-value' => personalization_button.id } %> 
+		<% end %>
+	</td>
+	<td><%= link_to 'Products', products_personalization_button_path(personalization_button.id), :remote => true, :class => 'btn btn-primary' %>
+	<div id="personalization_button_products_<%= personalization_button.id%>">
+		<%= render partial: "personalization_buttons/products_list", :locals => {:personalization_products => personalization_products, personalization_button:personalization_button} %>
+	</div>
+	</td>
+	<td>
+		<div id="personalization_fields_<%= personalization_button.id%>">
+			<%= render partial: "personalization_buttons/fields_list", :locals => {:personalization_fields => personalization_fields,personalization_button:personalization_button} %>
+		</div>
+	</td>
+</tr>
+<script type="text/javascript">
+	$("input[name='personalization_button[title]'],input[name='personalization_button[price]']").on("blur",function() {
+	     form_personalization_button_save($(this).attr("data-value"));
+  	});
+  	$("input[name='personalization_button[mandatory]']").on("change",function() {
+	     form_personalization_button_save($(this).attr("data-value"));
+  	});
+  	form_personalization_button_save = function(form_id) {
+	  if (form_id) {
+	    $.ajax({
+	      type: "POST",
+	      url: "/personalization_buttons/" + form_id,
+	      data: $("#edit_personalization_button_" + form_id).serialize(),
+	      dataType: "json",
+	      format: "js"
+	    });
+	  }
+	};
+</script>

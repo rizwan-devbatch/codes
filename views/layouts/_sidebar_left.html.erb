@@ -1,0 +1,38 @@
+<ul class="nav nav-sidebar nav-ul custom-sidebar">
+    <li><%= link_to 'Post a Campaign', new_campaign_path + '?campaign[brand_id]=', :remote => true %></li>
+    <li><%= link_to 'Post an Advert', new_advertisement_path + '?advertisement[campaign_id]=', :remote => true %></li>
+</ul>
+<ul class="nav nav-sidebar custom-sidebar main-sidebar">
+    <li class="<%= 'active' if params[:controller] == 'dashboard' %>" >
+        <%= link_to 'Dashboard',dashboard_index_path %>
+    </li>
+    <% if current_user.has_role? :admin %>
+        <li class="<%= 'active' if params[:controller] == 'users' %>" >
+            <%= link_to 'Users', users_index_path %>
+        </li>
+    <% end %>
+    <li class="<%= 'active' if params[:controller] == 'rewards' %>" >
+        <%= link_to 'Rewards', rewards_path %>
+    </li>
+    <li class="<%= 'active' if params[:controller] == 'financials' %>" >
+        <%= link_to 'Financial', financials_index_path %>
+    </li>
+    <li class="<%= 'active' if params[:controller] == 'brands' %>" >
+        <%= link_to 'Supplier', brands_path %>
+    </li>
+    <li class="<%= 'active' if params[:controller] == 'products' || params[:controller] == 'product_groups' %>" >
+        <%= link_to 'Products', products_path %>
+    </li>
+    <li class="<%= 'active' if params[:controller] == 'customers' || params[:controller] == 'customer_groups' %>" >
+        <%= link_to 'Customers', customers_path %>
+    </li>
+    <li class="<%= 'active' if params[:controller] == 'stores' %>" >
+        <%= link_to 'Stores', stores_path %>
+    </li>
+    <li class="<%= 'active' if params[:controller] == 'users/settings' %>" >
+        <%= link_to 'Settings', users_settings_path %>
+    </li>
+    <li class="<%= 'active' if params[:controller] == 'chat' %>" >
+        <%= link_to 'Live Chat', '#' %>
+    </li>
+</ul>

@@ -1,0 +1,9 @@
+<h4>Dear <%= @user.full_name %>!</h4>
+<p>Thank you for registering with Nutonia,</p>
+<p>You have successfully registered for an account at Nutonia. Here is your information:</p>
+
+<p> your email is <%= @user.email %> </p>
+<p> your password is <%= @user.password %> </p>
+
+
+<p>You can access the site at <%= link_to "Dashboard", base_url + new_user_session_path %>.</p>

@@ -1,0 +1,58 @@
+<tr id="fee_audition_parent_row_<%= fee_condition.id %>">
+	<td><%= link_to '-', fee_condition_path(fee_condition.id), method: :delete, data: { confirm: 'Are you sure?' }, :remote => true, class: 'add-remove-btn' %></td>
+	<td>
+		<%= simple_form_for fee_condition, :html => {:class=>"brands-form settings" } do |f| %>
+			<input type="hidden" class="form_id" value="<%= fee_condition.id %>">
+			<%= f.input :title, label: false,placeholder:"Condition" %>
+		<% end %>
+	</td>	
+	<td colspan="2">
+		<div id="fee_answers_<%= fee_condition.id%>">
+			<%= render partial: "fee_conditions/fee_answers_list", :locals => {:fee_answers => fee_answers,fee_condition:fee_condition} %>
+		</div>
+	</td>
+	<td>
+		<%= link_to 'Sub Accounts', sub_accounts_fee_condition_path(fee_condition.id), :remote => true, :class => 'btn btn-primary' %>
+		<div id="fee_condition_sub_accounts_<%= fee_condition.id%>">
+			<%= render partial: "fee_conditions/sub_accounts_list", :locals => {:fee_subaccounts => fee_subaccounts, fee_condition:fee_condition} %>
+		</div>
+	</td>
+	<td><%= link_to 'Products', products_fee_condition_path(fee_condition.id), :remote => true, :class => 'btn btn-primary' %>
+	<div id="fee_condition_products_<%= fee_condition.id%>">
+		<%= render partial: "fee_conditions/products_list", :locals => {:fee_products => fee_products, fee_condition:fee_condition} %>
+	</div>
+	</td>
+</tr>
+<script type="text/javascript">
+	$("input[name='fee_condition[title]']").on("blur",function() {
+		console.log($(this).parents('form').find('input.form_id').val());
+	     form_fee_condition_save($(this).parents('form').find('input.form_id').val());
+  	});
+  	form_fee_condition_save = function(form_id) {
+	  if (form_id) {
+	    $.ajax({
+	      type: "POST",
+	      url: "/fee_conditions/" + form_id,
+	      data: $("#edit_fee_condition_" + form_id).serialize(),
+	      dataType: "json",
+	      format: "js"
+	    });
+	  }
+	};
+
+	function call_form_fee_answer_save(form){
+		form_fee_answer_save(form);
+	}
+
+	form_fee_answer_save = function(form) {
+	  if (form) {
+	    $.ajax({
+	      type: "POST",
+	      url: "/fee_answers/" + form,
+	      data: $("#form_new_fee_answers_" + form).serialize(),
+	      dataType: "json",
+	      format: "js"
+	    });
+	  }
+	};
+</script>

@@ -1,0 +1,19 @@
+<div id="customers" class="container-fluid">
+   <div class="row">
+     <div class="col-xs-10 clearfix">	
+		<%= simple_form_for current_user.company, url: users_currencies_save_path, :html => { :multipart => true, :class=>"brands-form settings" } do |f| %>
+		     <div class="col-xs-5">
+		     <p class="brand-field-title">Please Select One Option</p> 
+			  <% @currencies.each do |c| %>
+			    <div class="full_width relative-radio-outer">
+			      <%= f.radio_button :currency_id, c.id, :class => "radio-hide" %>
+			      <label class="radio" for="company_currency_id_<%= c.id %>"><span class="radio-bg"></span><%= c.unit %></label>
+			    </div>
+			  <% end %>
+			    <button type="submit" class="btn btn-primary">Save</button>
+			</div>    
+		<% end %>
+     </div>
+     <%= render partial: "filters" %>
+   </div>
+</div>

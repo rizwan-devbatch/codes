@@ -1,0 +1,9 @@
+<ul class="brandslisting">
+	<% if products.count > 0 %>
+	    <% products.each do |product| %>
+	        <li><%= link_to product.title, edit_product_path %></li>
+	    <% end %>
+	<% else %>
+	      <li>No products available!</li>
+	<% end %>
+</ul>

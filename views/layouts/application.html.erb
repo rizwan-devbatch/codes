@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= content_for?(:title) ? yield(:title) : "Nutonia" %></title>
+    <meta name="description" content="<%= content_for?(:description) ? yield(:description) : "Nutonia" %>">
+    
+    <%#= javascript_include_tag "//www.google.com/jsapi", "chartkick" %>
+    <!-- <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css"> -->
+    <%= stylesheet_link_tag 'application', media: 'all' %><%#, 'data-turbolinks-track' => true %>
+    <%= javascript_include_tag 'application' %><%#, 'data-turbolinks-track' => true%>
+    <%= csrf_meta_tags %>
+  </head>
+  <body>
+    <header>
+      <%= render 'layouts/header' %>
+    </header>
+    <div class="container-fluid main_container">
+      <div class="row">
+        <div class="col-xs-2 sidebar">
+          <%= render 'layouts/sidebar_left' %>
+        </div>
+        <div class="col-xs-10 col-xs-offset-2 main">
+          <%= render 'layouts/messages' %>
+          <%= yield %>
+        </div>
+      </div>
+    </div>
+   
+    <%= render 'layouts/footer' %>
+    <%= render partial: 'campaigns/new' %>
+    <%= render partial: 'advertisements/new' %>
+  </body>
+</html>

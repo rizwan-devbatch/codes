@@ -1,0 +1,19 @@
+<% if @image.new_record? %>
+alert('The photo could not be uploaded: <%= j @image.errors.full_messages.join(', ').html_safe %>');
+<% else %>
+$('#myCarousel .carousel-inner').prepend('<%= j render partial: 'images', locals: {image: @image, active: (@images_count == 1)} %>');
+$("ol.carousel-indicators").append('<li data-target="#myCarousel" data-slide-to="<%= @images_count -1 %>" class="<%= "active" if @images_count == 1 %>"><%= @images_count %></li>');
+
+<% if @images_count >= 3 %>
+	$("#company-images-form").hide();
+<% end %>
+<% if @company.images.count > 0 %>
+	$('#myCarousel').addClass('slide');
+<% end %>
+
+if ($('.carousel').length) {
+	if ($('.carousel .carousel-inner figure').length) {
+		$('.carousel').carousel({interval: 2000});
+	}
+}
+<% end %>

@@ -1,0 +1,33 @@
+<div class="customer-list height-custom">
+    <% if accounts.count > 0 %>
+        <% 
+            pg_accounts = Array.new
+            supplier_accounts.each do |b| 
+                pg_accounts << b.id
+            end
+        %>
+        <% current_user.company.sub_companies.each do |account| %>
+            <div class="customer pull-left">
+                <div class="customer-inner-content customer-inner-content-height-custom position-ralative">
+                    <input type="checkbox" name="accounts[]" value="<%= account.id %>" class="popup-brands" <%="checked='checked'" if pg_accounts.include?(account.id) %> />
+                    <label class="checkbox" for="user_remember_me">
+                        <span class="checkbox-bg"></span>
+                    <% image = account.logo.first %>
+                    <% if !image.nil? %>
+                        <%= image_tag(image.image.remote_url, class: 'img-thumbnail custom-brand-img') %>
+                    <%  else %>
+                        <%= image_tag '142x188.gif' %>
+                    <% end %>
+                    </label>
+                    <div class="customer-detail">
+                        <div class="clearfix">
+                            <div class="pull-left"><%= account.name %></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <% end %>
+    <% else %>
+        <p>No account available!</p>
+    <% end %>
+</div>

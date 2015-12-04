@@ -1,0 +1,9 @@
+<h4>Dear <%= @user.full_name %>!</h4>
+<p><%= @current_user.full_name %> has appointed you as an approver on nutonia,</p>
+<p>Here is your information:</p>
+
+<p> your email is <%= @user.email %> </p>
+<p> your password is <%= @password %> </p>
+
+
+<p>You can access the site at <%= link_to "Dashboard", base_url + new_user_session_path %>.</p>

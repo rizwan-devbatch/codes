@@ -1,0 +1,38 @@
+<div class="col-xs-5 signup_container">
+  <h2>Sign up</h2>
+
+  <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+      <div class="form-fields-aligned-error">
+        <%= f.error_notification %>
+      </div>  
+      <div class="form-inputs">
+        <%= f.input :full_name, required: true, autofocus: true,label:"Full Name" %>
+        <%= f.input :email, required: true,label:"Email" %>
+        <%= f.input :phone_no, required: true,label:"Phone No" %>
+      <label for="country">* Country</label>
+        <%= f.country_select :country, required: true, priority: %w(US CA), prompt: 'Please select a country' %>
+        <%= render partial: 'home/subregion_select', locals: {parent_region: f.object.country} %>
+
+        <%= f.input :city, required: true,label:"City" %>
+        <%= f.input :address_1, required: true %>
+        <%= f.input :address_2 %>
+        <%= f.input :pobox, required: true %>
+        
+        <div class="relative-radio-outer full_width">
+            <%= f.check_box :contact, {class:"checkbox-hide"}, "yes", "no" %>
+            <label class="checkbox" for="user_contact">
+              <span class="checkbox-bg"></span>Same as above ?
+            </label>
+        </div>
+        <div id="contact-mockup">
+          <%= f.input :contact_full_name, required: true,label:"Contact Full Name" %>
+          <%= f.input :contact_email, required: true,label:"Contact Email" %>
+          <%= f.input :contact_phone_no, required: true,label:"Contact Phone No" %>
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <%= f.button :submit, "Sign up", class:"btn-primary" %>
+      </div>
+  <% end %>
+</div>

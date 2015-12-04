@@ -1,0 +1,9 @@
+<ul class="storeslising">
+	<% if stores.count > 0 %>
+	    <% stores.each do |store| %>
+	        <li><%= link_to stores.title, edit_store_path %></li>
+	    <% end %>
+	<% else %>
+	    <li>No stores available!</li>
+	<% end %>
+</ul>

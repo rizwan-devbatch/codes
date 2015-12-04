@@ -1,0 +1,31 @@
+<div class="container-fluid">
+	<div class="row">
+	  <div class="col-xs-12 clearfix">
+	  	<table class="shipping-table table" width="100%" id="shipments-container-table">
+			<thead>
+				<tr>
+					<th class="width14percent">Place <%= link_to '+', new_shipment_path, :remote => true, :class => 'add-remove-btn' %> </th>
+				  	<th class="w10percent">Min Order</th>
+				  	<th>Delivery Type</th>
+				  	<th>Estimated Duration</th>
+				  	<th class="w10percent">Rate</th>
+				  	<th class="w10percent">Day</th>
+				  	<th class="w10percent">Start Time</th>
+				  	<th class="w10percent">End Time</th>
+				  	<th>Rate</th>
+				  	<th class="w10percent">Sub Accounts</th>
+				</tr>
+			</thead>
+			<tbody id="shipments-tble-container-body">
+				<%= render partial: 'shipments/index', locals: { } %>
+			</tbody>
+	  	</table>
+	  </div>
+	  <%#= render partial: "users/filters" %>
+	</div>
+</div>
+<script>
+  // function add_min_order(){
+  //   $("#marketers_others").append('<div class="form-group"><input style="width:80%" type="email" name="marketers_email[]" placeholder="Email" %><a onclick=remove_others_input($(this)) class="add-remove-btn v-align-action-btn" href="javascript:void(0)" >-</a></div>');
+  // });
+</script>

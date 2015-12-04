@@ -1,0 +1,48 @@
+<h1>Users</h1>
+
+<div class="col-xs-3 no_left_padding">
+  <select id="action"  onchange="show()" class="form-control" >
+    <option <%= 'selected="selected"' %> value="pending" selected="selected">Pending</option>
+    <option <% if params[:status] == "approved" %> <%= 'selected="selected"' %> <% end %> value="approved">Approved</option>
+    <option <% if params[:status] == "rejected" %> <%= 'selected="selected"' %> <% end %> value="rejected">Rejected</option>
+  </select>
+</div>
+<div class="col-md-12 no_left_right_padding">
+  <table class="table">
+    <thead>
+    <tr>
+      <th>Full name</th>
+      <th>Email</th>
+      <th>country</th>
+      <th>contact_full_name</th>
+      <th>contact_email</th>
+      <% if params[:status].nil? || params[:status] == "pending" %>
+          <th>Approve</th>
+          <th>UnApprove</th>
+      <% end %>
+    </tr>
+    </thead>
+
+    <tbody>
+    <% if !@users.nil? %>
+        <% @users.each do | user | %>
+            <tr>
+              <td><%= user.full_name %></td>
+              <td><%= user.email %></td>
+
+              <td><%= user.country %></td>
+              <td><%= user.contact_full_name %></td>
+              <td><%= user.contact_email %></td>
+              <% if params[:status].nil? || params[:status] == "pending" %>
+                  <td><%= link_to "Approved", admin_users_get_approved_path(:id => user.id), class: "btn btn-success" %></td>
+                  <td><%= link_to "Reject", admin_users_get_rejected_path(:id => user.id), class: "btn btn-danger" %></td>
+              <% end %>
+            </tr>
+        <% end %>
+    <% end %>
+    </tbody>
+  </table>
+  <%= will_paginate @users %>
+</div>
+
+

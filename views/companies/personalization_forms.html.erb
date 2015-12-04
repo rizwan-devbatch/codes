@@ -1,0 +1,31 @@
+<div class="container-fluid">
+	<div class="row">
+	  <div class="col-xs-10 clearfix">
+  		<table class="shipping-table table">
+			<thead>
+				<th></th>
+				<th>Button Title <%= link_to '+', new_personalization_button_path, :remote => true, :class => 'add-remove-btn' %></th>
+				<th>Products</th>
+				<th>Fields </th>
+			</thead>
+			<tbody id="product_personalization_forms_body">
+				<% if !@personalization_buttons.blank? %>
+					<% @personalization_buttons.each do |form| %>
+						<% personalization_products = Product.find_by_sql("SELECT products.* FROM products inner join personalization_products on products.id = personalization_products.product_id where personalization_products.personalization_button_id= #{form.id}") %>
+						<% personalization_fields = form.personalization_fields%>
+						<%= render partial: "personalization_forms_row",:locals => { personalization_button:form,:personalization_products => personalization_products,:personalization_fields => personalization_fields} %>
+					<% end %>
+				<% else %>
+					<tr id="no_personalization_form_row"><td colspan="4">No form added yet</td></tr>
+				<% end %>
+				
+			</tbody>
+		</table>
+	  </div>
+	  <%= render partial: "users/filters" %>
+	</div>
+</div>
+<%= render partial: 'personalization_buttons/products' %>
+	  
+
+

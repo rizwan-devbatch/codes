@@ -1,0 +1,50 @@
+ <div class="brands-form-row clearfix">
+      <div class="col-xs-2 img-caption no_left_right_padding" id="brand-logo">
+        <a href="<%= performance_brand_path(@brand) %>">
+                <%= render partial: 'brands/form_images', locals: {images: @brand.images,performance:true} %>
+        </a>
+      </div>
+      <div class="col-xs-9 clearfix">
+          <div class="round-logo pull-left">
+            <% image = @brand.logo.first %>
+              <% if !image.nil? %>
+                  <%= image_tag(image.image.remote_url, class: '') %>
+              <%  else %>
+                <%= image_tag '142x188.gif' %>
+              <% end %>
+          </div>
+          <div class="pull-left clearfix preview_title_vertical_align"><%= @brand.title %> (<%= @brand.id %>)</div>
+      </div>
+      <div class="col-xs-9"> 
+        <% if @brand.ownership == true %>
+          <p class="margin_top_bottom_10px"> Own Supplier</p>
+        <% else %>  
+          <p class="margin_top_bottom_10px">Partner Supplier</p>
+        <% end %>   
+      </div>
+      <div class="col-xs-9">
+        <p class="brand-field-subtitle"><%= @brand.description %></p>
+      </div>
+      <% if @brand.brand_type == 'group' %>
+        <div class="col-xs-5">
+          <ul class="brandslisting">
+             <% @brand_groups.each do |brand_group| %>
+              <li><%= brand_group.id %></li>
+           <% end %>
+          </ul>
+        </div> 
+<% end %>
+  <% if @brand.status_caption == "pending" %>
+      <% if (current_user.has_role? :marketer) or ((current_user.has_role? :brandmanager) && current_user.marketer) %>
+        <%= render partial: "marketer" %>
+      <% end %>
+    <% elsif @brand.status_caption == "sent" %>
+      <% if (current_user.has_role? :approver) or ((current_user.has_role? :brandmanager) && current_user.approver) %>     
+        <%= render partial: "approver" %> 
+      <% end %>      
+  <% end %>
+
+</div>
+
+
+  

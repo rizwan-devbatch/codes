@@ -1,0 +1,38 @@
+<div class="col-xs-5">
+  <h2>Edit Profile</h2>
+
+  <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+      <%= f.error_notification %>
+
+      <div class="form-inputs">
+        <%= f.input :full_name, required: true, autofocus: true %>
+        <%= f.input :email, required: true %>
+        <%= f.input :phone_no, required: true %>
+      <label for="country">* Country</label>
+        <%= f.country_select :country, required: true, priority: %w(US CA), prompt: 'Please select a country' %>
+        <%= render partial: 'home/subregion_select', locals: {parent_region: f.object.country} %>
+
+        <%= f.input :city, required: true %>
+        <%= f.input :address_1, required: true %>
+        <%= f.input :address_2 %>
+        <%= f.input :pobox, required: true %>
+        <!--<%= f.input :contact, as: :boolean,inline_label: true, checked_value: "yes", unchecked_value: "no", required:true %>-->
+        <div class="test_wrap">
+          <%= f.check_box :contact, {}, "yes", "no"  %>
+          <span class="bold">Same as above ?</span>
+        </div>
+
+        <!--<label class="checkbox" for="user_contact">
+          <span class="checkbox-bg"></span>
+          <span>Same as above ?</span>
+        </label>-->
+        <div id="contact-mockup">
+          <%= f.input :contact_full_name, required: true %>
+          <%= f.input :contact_email, required: true %>
+          <%= f.input :contact_phone_no, required: true %>
+        </div>
+      </div>
+
+      
+  <% end %>
+</div>

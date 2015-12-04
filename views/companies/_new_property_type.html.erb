@@ -1,0 +1,40 @@
+<%# binding.pry%>
+<% if !@property_types.nil? %>
+	<% @property_types.each do |pt| %>
+		<tr rowspan="<%= @product_properties.count%>" id="row_<%= pt.id %>">
+			<td class="td_cell1">
+					
+				<%= simple_form_for pt,url:product_property_type_save_companies_path(pt.id), remote: true, :html => {:id => "form-new-property-type-"+pt.id.to_s , :class => "brands-form" } do |f| %>
+		        	<div class="form-group">
+		          		<%= f.input_field :name, inline_label:"Name", required: true, autofocus: true,class:"w294px product_property_type_name", :'data-value' => pt.id %><a class="add-remove-btn v-align-action-btn remove_property_type"  href="javascript:void(0)" >-</a>
+		          		<%= link_to '-', product_property_type_destroy_companies_path(pt.id), method: :delete, data: { confirm: 'Are you sure?' }, :remote => true, class: 'add-remove-btn v-align-action-btn' %>
+		        	</div>
+		      	<% end %>		
+								
+			</td>
+			<td id="<%= pt.id%>" class="td_cell2">
+			<%= render partial: 'new_product_property', locals: {property_type_id:pt.id, :product_properties => @product_properties.where(product_property_type_id:pt.id)} %>
+			</td>
+		</tr>
+	<% end %>
+<% else %>
+	<tr><td>No Property types are available</td></tr>
+<% end %>
+
+<script type="text/javascript">
+	if ($(".product_property_type_name").length) {
+  		$(".product_property_type_name").blur(function (){
+	      form_new_product_property_type_save($(this).attr('data-value'));
+	    })
+  	}
+
+</script>
+ <script type="text/javascript">
+// 	if ($(".product_property_name").length) {
+//   		$(".product_property_name").on('blur',function (){
+// 	      	call_form_new_product_property_save($(this).attr('data-value'));
+// 	    })
+//   	}
+ </script>
+
+

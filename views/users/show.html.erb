@@ -1,0 +1,50 @@
+<p id="notice"><%= notice %></p>
+  <div class="row">
+    <!-- Start .row -->
+    <div class="col-lg-12">
+        <!-- col-lg-12 start here -->
+        <div class="panel panel-default ">
+            <!-- Start .panel -->
+            <div class="panel-heading white-bg">
+                <h4 class="panel-title"></h4>
+            </div>
+        <% @users.each do | user | %>
+            <div class="panel-body">
+                <table class="table table-bordered">
+                    <thead>
+                      <tr>
+                        <th class="per40">Vacant </th>
+                        <th class="per40">Rent </th>
+                        <th class="per40">Title </th>
+                        <th class="per40">Size</th>
+                        <th class="per40">Total</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                          <td>
+                          <%= user.full_name %>
+                          </td>
+                          <td>
+                          <%= user.email %>
+                          </td>
+                          <td>
+                          <%= user.phone_no %>
+                          </td>
+                          <td>
+                          <%= user.country %>
+                          </td>
+                          <td>
+                          <%= user.pobox %>
+                          </td>
+                      </tr>
+                   </tbody>
+                </table>
+               
+            <div>
+        </div>
+    </div>
+   <% end %> 
+   </div>
+  </div>
+</div>

@@ -1,0 +1,25 @@
+<div class="container-fluid">
+	<div class="row">
+	  <div class="col-xs-10 clearfix">
+	  	<table class="shipping-table table" width="100%" id="rewards-membership-container-table">
+			<thead>
+				<tr>
+				  	<th>
+				    	Type <%= link_to '+', new_property_type_companies_path, :remote => true, :class => 'add-remove-btn' %>
+				  	</th>
+				  	<th>
+				  		Property
+				  	</th>
+				</tr>
+			</thead>
+			<tbody id="properties-tble-container-body">
+				<%= render partial: 'companies/new_property_type', locals: { } %>
+			</tbody>
+	  	</table>
+	  </div>
+	  <%= render partial: "users/filters" %>
+	</div>
+</div>
+<script>
+  var company_id = <%= @company.id %>;
+</script>

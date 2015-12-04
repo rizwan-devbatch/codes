@@ -1,0 +1,20 @@
+<%
+	if @campaign.store_id
+		brands = @campaign.store.brands
+	else
+		brands = @user.brands
+	end
+%>
+<% if @campaign.store_id || @campaign.brand_id %>
+	<% if @campaign.brand_id %>
+		<% products = @campaign.brand.products %>
+	<% else %>
+		<% products = @user.products %>
+	<% end %>
+	<div class="form-group">
+		<label>Select Brand</label>
+		<%= f.select(:brand_id, brands.all.collect { |b| [ b.title, b.id ] },{:prompt => 'Select Brand'}) %>
+	</div>
+<% else %>
+	<% products = @user.products %>
+<% end %>

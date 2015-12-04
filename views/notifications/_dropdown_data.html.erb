@@ -1,0 +1,18 @@
+<% @notifications.each do |notification| %>
+	<li>
+		<a href="<%= polymorphic_path(notification.notifiable, action: 'performance') %>">
+			<% image = notification.notifiable.images.first %>
+            <% if !image.nil? %>
+                <%= image_tag(image.image.remote_url, class: '') %>
+            <%  else %>
+              <%= image_tag '236x157.gif' %>
+            <% end %>
+        </a>
+		<p> 
+			<%= link_to notification.notifiable.title, polymorphic_path(notification.notifiable, action: 'performance') %> <%= notification.message %><br />
+			<span class="italic"><%= time_ago_in_words(notification.created_at)%></span>
+		</p>
+	</li>
+	<li class="divider"></li>
+<% end %>
+<li><a class="viewall_notifications" href="<%= notifications_path %>">View all</a></li>

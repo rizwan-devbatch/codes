@@ -1,0 +1,40 @@
+<div id="customers" class="container-fluid">
+ <div class="row">
+    <div class="col-xs-10 clearfix">
+<div class="col-xs-5">
+  <%= simple_form_for current_user, url: users_save_profile_path do |f| %>
+      <%= f.error_notification %>
+
+      <div class="form-inputs">
+        <%= f.input :full_name, required: true, autofocus: true %>
+        <%= f.input :email, required: true %>
+        <%= f.input :phone_no, required: true %>
+      <label for="country">* Country</label>
+        <%= f.country_select :country, required: true, priority: %w(US CA), prompt: 'Please select a country' %>
+        <%= render partial: 'home/subregion_select', locals: {parent_region: f.object.country} %>
+
+        <%= f.input :city, required: true %>
+        <%= f.input :address_1, required: true %>
+        <%= f.input :address_2 %>
+        <%= f.input :pobox, required: true %>
+        <!--<%= f.input :contact, as: :boolean,inline_label: true, checked_value: "yes", unchecked_value: "no", required:true %>-->
+        <div class="test_wrap">
+          <%= f.check_box :contact, {}, "yes", "no"  %>
+          <span class="bold">Same as above ?</span>
+        </div>
+        <div id="contact-mockup">
+          <%= f.input :contact_full_name, required: true %>
+          <%= f.input :contact_email, required: true %>
+          <%= f.input :contact_phone_no, required: true %>
+        </div>
+      </div>
+
+      <div class="form-actions">
+            <%= f.button :submit, "Update" %>
+          </div>
+  <% end %>
+</div>
+</div>
+     <%= render partial: "filters" %>
+   </div>
+</div>

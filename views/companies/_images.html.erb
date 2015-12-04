@@ -1,0 +1,5 @@
+ <figure class="images-carousel-slide item <%= 'active' if active %>" id="company-image-<%= image.imageable_id %>-<%= image.id %>">
+			<%= link_to '', images_destroy_companies_path(image.imageable_id, image.id), method: :delete, data: { confirm: 'Are you sure?' }, :remote => true, class: 'del-img' %>
+		<%= image_tag(image.image.remote_url, class: 'img-thumbnail custom-brand-img') %>
+</figure>	
+

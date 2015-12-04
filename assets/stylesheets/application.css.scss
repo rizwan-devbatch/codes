@@ -1,0 +1,67 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any styles
+ * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
+ * file per style scope.
+ *
+ *= require bootstrap-datepicker
+ *= require_tree .
+ *= require_self
+ */
+
+@import "bootstrap";
+@import 'bootstrap/theme';
+
+
+.progress-wrapper {
+  display: none;
+}
+label{
+  font-weight:normal;
+}
+abbr{
+  display:none;
+}
+select{
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background: transparent url("field_right_btn.png") no-repeat 96% !important;
+}
+input, textarea,select{
+  color:#333;
+}
+.no_padding{
+  padding: 0px !important;
+}
+.no_left_padding{
+  padding-left: 0px !important;
+}
+.no_right_padding{
+  padding-right: 0px !important;
+}
+.no_left_right_padding{
+  padding-left: 0px !important;
+  padding-right: 0px !important;
+}
+.bold{
+  font-weight: bold;
+}
+input,select,textarea{
+	border-radius:3px;
+	border-width: 1px;
+  border:1px solid #ccc;
+}
+
+.main-sidebar{
+	padding-top:10px;
+}
+.main_container{
+  min-width:1230px;
+}

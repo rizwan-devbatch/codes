@@ -1,0 +1,19 @@
+<h1>List of photos</h1>
+ 
+<ul class="row" id="brand-logo">
+  <%= render @images %>
+</ul>
+ 
+<%= form_for @image, remote: true do |f| %>
+  <div class="form-group">
+    <%= f.label :author %>
+    <%#= f.text_field :author, class: 'form-control' %>
+  </div>
+ 
+  <div class="form-group">
+    <%= f.label :image %>
+    <%= f.attachinary_file_field :image, required: true %>
+  </div>
+ 
+  <%= f.submit 'Submit', class: 'btn btn-primary btn-lg' %>
+<% end %>

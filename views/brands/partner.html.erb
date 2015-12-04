@@ -1,0 +1,64 @@
+<div id="customers" class="container-fluid">
+    <div class="row">
+        <div class="col-sm-9 clearfix customer-list">
+            <div class="customer pull-left">
+                <div class="customer-inner-content bg-dashed">
+                    <div class="half-segment">
+                        <div class="cell">
+                            <a href= "<%= new_brand_path %>" >
+                                <span class="icon icon-add"></span>
+                                <p><%= link_to 'Add New Brand', new_brand_path %></p>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+             <% if @brands.count > 0 %>
+
+             <% @brands.each do |brand| %>
+             <% if brand.ownership == false %>
+            <div class="customer pull-left">
+                <div class="customer-inner-content">
+                    <%#= image_tag brand.pic.url(:thumb) %>
+                    <% image = brand.images.first %>
+                    <% if !image.nil? %>
+                        <%= image_tag(image.image.remote_url, class: '') %>
+                    <%  else %>
+                      <%= image_tag '142x188.gif' %>
+                    <%  end  %>
+                    <div class="customer-detail">
+                        <div class="clearfix">
+                            <div class="pull-left"><%= brand.title %></div>
+                            <div class="pull-right"><%= brand.fax %></div>
+                        </div>
+                        <div class="clearfix">
+                            <div class="pull-left"><%= brand.web%></div>
+                            <div class="pull-right">
+                                <span class="icon icon-lorry"></span>
+                                <span class="icon icon-hut"></span>
+                            </div>
+                        </div>
+                        <div class="clearfix">
+                            <div class="pull-left"><%= brand.country %> </div>
+                            <div class="pull-right">
+                                <span class="icon icon-radio"></span>
+                                <span class="figure"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <% end %>
+          <% end %>
+        <% else %>
+             <p>No brand available!</p>
+        <% end %>
+        </div>
+        <%= render partial: "filters" %>
+
+    </div>
+</div>
+<div class="row" style="align:right;">
+    <%= will_paginate @brands, renderer: BootstrapPagination::Rails %>
+</div>

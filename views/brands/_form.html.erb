@@ -1,0 +1,119 @@
+<div class="brands-form-row clearfix">
+      
+      <div class="pull-left img-caption form-images-container rounded_image no_left_right_padding" id="brand-logo">
+        <%= render partial: 'form_logo', locals: {logo: !@brand.logo.blank?} %>
+        <div id="brand-logo-show-container">
+          <% if !@brand.logo.blank? %>
+            <%= render partial: 'logo', locals: {logo: @brand.logo.first} %>
+          <% end %>
+        </div>
+      </div>
+ 
+      <div class="tablet-margin-fix form-images-container img-caption pull-left" id="brand-images">
+       <%= render partial: 'form_images', locals: {images: @brand.images} %>
+      </div>
+
+  <%= simple_form_for @brand, :html => { :multipart => true, :class=>"brands-form" } do |f| %>
+    
+      <div class="col-xs-3">
+          <p class="brand-field-title">Supplier Name</p>
+          <div class="form-group">
+            <%= f.input :title, label:"Title", autofocus: true, placeholder:"Name" %>
+          </div>
+          <p class="brand-field-title">Supplier Description</p>
+          <div class="form-group">
+            <%= f.input :description ,label:'Description', placeholder:"Enter Description", input_html: {:class=>"brand-web"} %>
+          </div>
+      </div>
+      <div class="col-xs-3 no_left_right_padding">
+          <p class="brand-field-title">Supplier Website</p>
+          <div class="form-group">
+            <%= f.input :web,label:'Website', placeholder:"Enter the URL of web", input_html: {:class=>"brand-web"} %>
+          </div>
+          <p class="brand-field-title">Select one applicable option</p>
+          <div class="form-group relative-radio-outer">
+            <%= f.radio_button :ownership, "true", { :checked => true, :class => "radio-hide" } %>
+            <label for="brand_ownership_true" class="radio"><span class="radio-bg"></span>Own Supplier</label>
+            <%= f.radio_button :ownership, "false", :class => "radio-hide" %>
+            <label for="brand_ownership_false" class="radio"><span class="radio-bg"></span>Partner Supplier</label>
+          </div>
+          <div class="clearfix" >
+            <button style="width:auto !important" class="btn" id="supplier_accounts_btn" type="button">Supplier accounts</button>
+          </div> 
+      </div>        
+    
+      <div class="col-xs-12 no_left_right_padding pull-right">
+        <div class="form-actions pull-right">
+          <%= link_to "Preview", brand_path, class:"brand-submit preview", value:'preview', name:'preview' %>
+        </div>
+      </div>  
+    <div class="clearfix frm-line pull-left"></div>
+    <ul class="nav nav-tabs" role="tablist" id="shipping-tabs">
+        <!--<li role="presentation" class="active"><a href="#brand-address-tab" aria-controls="brand-address-tab" role="tab" data-toggle="tab"><span class="tab-count">1</span>Address</a></li>-->
+        <li role="presentation" class="active"><a href="#supplier_accounts_tab" aria-controls="supplier_accounts_tab" role="tab" data-toggle="tab"><span class="tab-count">1</span>Accounts</a></li> 
+        <li role="presentation" ><a href="#all-terms-tab" aria-controls="all-terms-tab" role="tab" data-toggle="tab"><span class="tab-count">2</span>Terms</a></li>    
+    </ul>
+    <div class="tab-content">
+        <!--<div role="tabpanel" class="tab-pane active" id="brand-address-tab">
+          <div class="col-sm-12 no_left_right_padding">
+            <div class="col-xs-2 no_left_right_padding">
+              <%= f.input :street, label:' Address Line1' %>
+              <%= f.input :street1, label:' Address Line2' %>
+              <%= f.input :street2, label:' Address Line3' %>
+            </div>
+            <div class="col-xs-2 no_left_right_padding contact-info-frm">
+              <label for="country">  Country</label>
+              <%= f.country_select :country, priority: %w(US CA), prompt: 'Please select a country' %>
+              <div id="brand_state_code_wrapper">
+                <%= render partial: 'subregion_select', locals: {parent_region: f.object.country} %>
+              </div>
+              <%= f.input :city, label:' City' %>
+            </div>
+            <div class="col-xs-2 no_left_right_padding">
+              <%= f.input :zip, label:' Zip' %>
+              <%= f.input :phone, label:' Phone' %>
+              <%= f.input :fax, label:' Fax' %>
+
+            </div>
+            <%= f.hidden_field :user_id %>
+          </div>
+        </div>-->
+        <%= f.hidden_field :user_id %>
+  <% end %>      
+    <div role="tabpanel" class="tab-pane" id="brand-products-tab">
+      <div id="brand-products-container"></div>
+    </div>
+    <div role="tabpanel" class="tab-pane active" id="supplier_accounts_tab">
+      <div id="supplier_accounts_container">
+        <%= render partial: 'accounts_list' %>
+      </div>
+    </div>
+    <div role="tabpanel" class="tab-pane " id="all-terms-tab">
+      <%= render partial: 'terms/form', locals: {object_class: 'brand', object_id: @brand.id} %>
+    </div>
+  </div>    
+</div>
+<div class="modal fade" id="supplier_accounts_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog w541px">
+    <div class="modal-content">
+      <%= simple_form_for @brand, :html => {:id => "form_supplier_accounts", :class => "brands-form" } do |f| %>
+        <div class="" id="supplier_accounts_modal_body">
+        </div>  
+      <% end %>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" id="supplier_accounts_done">Save</button>
+      </div>
+    </div>
+  </div>
+</div>
+ 
+  <%= render partial: 'currency' %>
+<% if @brand.status_caption == 'sent' or @brand.status_caption == 'approved' or @brand.status_caption == 'returned' or (current_user.has_role? :approver) or (current_user.has_role? :marketer) %>
+     <script>
+       //formDisabled();
+     </script>
+<% end %>
+<script>
+  var active_form = "Brand";
+  var brand_id = <%= @brand.id %>;
+</script>

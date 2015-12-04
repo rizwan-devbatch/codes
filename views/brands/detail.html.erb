@@ -1,0 +1,94 @@
+<div class="brands-form-row clearfix">
+  <div class="col-xs-2 img-caption no_left_right_padding" id="brand-logo">
+      <%= render partial: 'form_logo', locals: {logo: !@brand.logo.blank?} %>
+      <div id="brand-logo-show-container">
+        <% if !@brand.logo.blank? %>
+          <%= render partial: 'logo', locals: {logo: @brand.logo.first} %>
+        <% end %>
+      </div>
+  </div>
+    <div class="col-xs-8">
+      <div class="col-xs-4">
+        <p class="brand-field-title">Brand Name</p>
+        <p class="brand-field-subtitle">Enter the title of the Brand</p>
+        <div class="form-group">
+          <%= f.input :title, label:"Title", required: true, autofocus: true, placeholder:"Name" %>
+        </div>
+        <p class="brand-field-title">Web Page</p>
+        <p class="brand-field-subtitle">Enter the web URL or the Brand</p>
+        <div class="form-group">
+          <%= f.input :web,label:'Web Site', required: true, placeholder:"Enter the URL of web", input_html: {:class=>"brand-web"} %>
+        </div>
+      </div>
+      <div class="col-xs-5">
+        <p class="brand-field-title">Brand Ownership</p>
+        <p class="brand-field-subtitle">Select the ownership</p>
+        <div class="form-group radio-group">
+          <%= f.radio_button :ownership, "true",{ :checked => true } %>
+          <label for="brand_ownership_true">Owned</label>
+          <%= f.radio_button :ownership, "false" %>
+          <label for="brand_ownership_false">Partner</label>
+        </div>
+      </div>
+    </div>
+    <div class="col-xs-1 no_left_right_padding pull-right">
+      <div class="form-actions pull-right">
+        <%= f.button :submit, "Preview", class:"brand-submit" %>
+        <%= link_to 'Add Product', new_product_path, class:"btn brand-submit" %>
+        <button class="btn brand-submit" type="button">Add Campaign</button>
+      </div>
+    </div>
+    <div class="clearfix frm-line pull-left"></div>
+    <ul class="nav nav-tabs" role="tablist" id="shipping-tabs">
+        <li role="presentation" class="active"><a href="#brand-address-tab" aria-controls="brand-address-tab" role="tab" data-toggle="tab"><span class="tab-count">1</span>Address</a></li>
+        <li role="presentation"><a href="#brand-products-tab" aria-controls="brand-products-tab" role="tab" data-toggle="tab"><span class="tab-count">2</span>Product</a></li>
+        <li role="presentation"><a href="#brand-stores-tab" aria-controls="brand-stores-tab" role="tab" data-toggle="tab"><span class="tab-count">3</span>Store</a></li>
+        <li role="presentation"><a href="#brand-images-tab" aria-controls="images" role="tab" data-toggle="tab"><span class="tab-count">4</span>Brand Images</a></li>
+    </ul>
+    <div class="tab-content">
+        <div role="tabpanel" class="tab-pane active panel-inner" id="brand-address-tab">
+          <div class="col-sm-12 no_left_right_padding">
+            <div class="col-xs-2 no_left_right_padding">
+              <p class="brand-field-title">Address</p>
+              <p class="brand-field-subtitle">Enter your address</p>
+              <%= f.input :street, label:'Address Line1', required: true %>
+              <%= f.input :street1, label:'Address Line2' %>
+              <%= f.input :street2, label:'Address Line3' %>
+            </div>
+            <div class="col-xs-2 no_left_right_padding contact-info-frm">
+              <p class="brand-field-title">Contact Info</p>
+              <p class="brand-field-subtitle">Enter country,city,zip and state</p>
+              <label for="country">* Country</label>
+              <%= f.country_select :country, required: true, priority: %w(US CA), prompt: 'Please select a country' %>
+              <div id="brand_state_code_wrapper">
+                <%= render partial: 'subregion_select', locals: {parent_region: f.object.country} %>
+              </div>
+              <%= f.input :city, label:'City', required: true %>
+            </div>
+            <div class="col-xs-2 no_left_right_padding frm-no-title">
+              <%= f.input :zip, label:'Zip', required:true %>
+              <%= f.input :mobile, label:'Mobile', required:true %>
+              <%= f.input :fax, label:'Fax' %>
+            </div>
+            <%= f.hidden_field :user_id %>
+          </div>
+        </div>
+        <div role="tabpanel" class="tab-pane panel-inner" id="brand-products-tab">
+            <p>Product listing</p>
+            <div id="brand-products-container"></div>
+        </div>
+        <div role="tabpanel" class="tab-pane panel-inner" id="brand-stores-tab">
+          <p>Store listing</p>
+            <div id="brand-stores-container"></div>
+        </div>
+        <div role="tabpanel" class="tab-pane panel-inner" id="brand-images-tab">
+          <div class="col-xs-8" id="brand-images">
+            <%= render partial: 'form_images', locals: {images: @brand.images} %>
+          </div>
+        </div>
+    </div>
+    
+</div>
+<script>
+  var brand_id = <%= @brand.id %>;
+</script>

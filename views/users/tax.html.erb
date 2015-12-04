@@ -1,0 +1,14 @@
+<div id="customers" class="container-fluid">
+    <div class="row">
+    <div class="col-xs-10 clearfix">
+	<%= simple_form_for current_user.company, url: users_tax_save_path, :html => {:class=>"brands-form settings" } do |f| %>
+	   <p class="brand-field-title"></p>
+	       <div class="form-group col-xs-5">
+	            <%= f.input :tax, label:"", autofocus: true, placeholder:"Tax" %>
+	           <input type="submit" class="btn" value="Submit" />
+	       </div>    
+	<% end %>
+    </div>
+     <%= render partial: "filters" %>
+   </div>
+</div>	

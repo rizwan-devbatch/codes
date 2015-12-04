@@ -1,0 +1,14 @@
+$("#form-new-brands input").removeClass("errors");
+	<% if @errors[:title].nil? && @brand.brand_type == "single" %>
+		$("#form-new-brands-modal").modal("hide")
+		location.href="<%= edit_brand_path(@brand) %>"
+	<% elsif @errors[:title].nil? && @brand.brand_type == "group"%>
+	     $("#form-new-brands-modal").modal("hide")
+		location.href="<%= edit_brand_group_path(@brand) %>"
+    <% else %>		
+		<% if !@errors[:title].blank? %>
+			$("input[name='brand[title]']").addClass('errors');
+		<% end %>
+		
+		$("form, .customer-list").animate({ scrollTop: 0 }, "slow");
+	<% end %> 

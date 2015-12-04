@@ -1,0 +1,78 @@
+<h1>List of photos</h1>
+ 
+<ul class="row" id="brand-logo">
+  <%= render @images %>
+</ul>
+ 
+<h3>Upload multiple photos</h3>
+<%= form_for @image do |f| %>
+  <div class="form-group">
+    <%= f.label :author %>
+    <%#= f.text_field :author, class: 'form-control' %>
+  </div>
+ 
+  <div class="form-group">
+    <%= f.label :image %>
+    <%= f.attachinary_file_field :image, required: true, multiple: true, name: 'image[image]' %>
+  </div>
+	<div class="progress-wrapper">
+	  <p>Bitrate: <span class="bitrate"></span></p>
+	  <div class="progress">
+	    <div class="progress-bar" role="progressbar">
+	      0%
+	    </div>
+	  </div>
+	</div>
+<% end %>
+
+<script>
+  // $(document).ready(function() {
+  //   $('#new_image').fileupload({dataType: 'script'});
+  // });
+  $(document).ready(function() {
+    var multiple_photos_form = $('#new_image');
+
+	var wrapper = multiple_photos_form.find('.progress-wrapper');
+	var progress_bar = wrapper.find('.progress-bar');
+
+	multiple_photos_form.on('fileuploadstart', function() {
+	  wrapper.show();
+	});
+
+	multiple_photos_form.on('fileuploaddone', function() {
+	  wrapper.hide();
+	  progress_bar.width(0); // Revert progress bar's width back to 0 for future uploads
+	});
+
+	multiple_photos_form.on('fileuploadprogressall', function (e, data) {
+	  var progress = parseInt(data.loaded / data.total * 100, 10);
+	  progress_bar.css('width', progress + '%').text(progress + '%');
+	});
+
+	var bitrate = wrapper.find('.bitrate');
+
+	multiple_photos_form.on('fileuploadprogressall', function (e, data) {
+	  bitrate.text((data.bitrate / 1024).toFixed(2) + 'Kb/s');
+	 
+	  var progress = parseInt(data.loaded / data.total * 100, 10);
+	  progress_bar.css('width', progress + '%').text(progress + '%');
+	});
+
+    // multiple_photos_form.fileupload({dataType: 'script'});
+    multiple_photos_form.fileupload({
+	  dataType: 'script',
+	  add: function (e, data) {
+	    types = /(\.|\/)(gif|jpe?g|png|bmp)$/i;
+	    file = data.files[0];
+	    if (types.test(file.type) || types.test(file.name)) {
+	      data.submit();
+	    }
+	    else { alert(file.name + " must be GIF, JPEG, BMP or PNG file"); }
+	  }
+	});
+
+    // multiple_photos_form.on('fileuploadsubmit', function (e, data) {
+    //   data.formData = {'photo[author]': $('#photo_author').val()};
+    // });
+  });
+</script>

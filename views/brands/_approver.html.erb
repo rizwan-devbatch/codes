@@ -1,0 +1,38 @@
+
+    <% if @brand.status_caption == 'sent' %>
+    <%= @brand.sender_name.split(/\s+/).map(&:first).join('.').upcase %>
+        <div class="col-md-10 col-md-offset-2">
+            <% if @brand.status_caption == 'approved' %>
+                <%= link_to "Approved", "#", class:'brand-submit', disabled: true %>
+            <% else %>
+                <%= link_to 'Approve', approve_brand_path(@brand), class:'brand-submit' %>
+            <% end %>    
+            <% if @brand.status_caption == 'returned' %>
+                <%= link_to "Returned", "#", class:'brand-submit', disabled: true %>
+            <% else %> 
+                 <button class="brand-submit" id="test" >Return</button>
+            <% end %>        
+            <%= link_to 'View', edit_brand_path, class:'brand-submit' %>
+        </div>
+    <% end %>
+<div class="modal fade" id="return" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog w294px">
+    <div class="modal-content">
+        <div class="">
+          <div class="control-group">
+          <%= form_tag return_brand_path, remote: true do |f| %>
+            <%= label_tag :message, 'Message', class: "control-label" %>
+            <div class="controls">
+            <%= text_area_tag :message, 'hows you ' ,class:"form-control tinymce", rows:"8" %>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <%= link_to "Send", return_brand_path(@brand), class: "brand-submit" %>
+        </div>
+       <% end %>
+    </div>
+  </div>
+</div>
+
+

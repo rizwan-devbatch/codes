@@ -1,0 +1,7 @@
+<% if @logo.new_record? %>
+alert('The photo could not be uploaded: <%= j @logo.errors.full_messages.join(', ').html_safe %>');
+<% else %>
+$('#brand-logo #brand-logo-form-container').hide();
+$('#brand-logo #brand-logo-show-container').show();
+$('#brand-logo #brand-logo-show-container').html('<%= j render partial: 'logo', locals: {logo: @logo} %>');
+<% end %>

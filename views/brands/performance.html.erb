@@ -1,0 +1,114 @@
+ <div class="brands-form-row clearfix">
+	<div class="margin-top-48px tablet-margin-fix form-images-container img-caption pull-left" id="brand-images">
+       <%= render partial: 'brands/form_images', locals: {images: @brand.images,performance:true} %>
+  	</div>
+	<div class="col-xs-4 no_left_right_padding">
+		<%= line_chart [
+		  {name: "Earn", data: {1 => 1,2 => 10,3 => 6,4 => 12}},
+		  {name: "Burn", data: {1 => 10, 2 => 5, 3 => 15}}
+		], height:'253px',library: {backgroundColor: "transparent", colors: ["#CBECFD","#282828"],hAxis: {title: "Engagement"} } %>
+	</div>
+	<div class="col-xs-4 no_left_right_padding">
+		<%= area_chart({20.day.ago => 5, 1368174456 => 4, "2013-05-07 00:00:00 UTC" => 7}, height:'253px',library: {backgroundColor: "transparent", colors: ["#CBECFD","#282828"],hAxis: {title: "Subscription Rate"}}) %>
+	</div>
+	<div class="col-xs-1 no_left_right_padding pull-right">
+		<!--<p>
+		  <label for="amount">Volume:</label>
+		  <input type="text" id="amount" readonly style="border:0; color:#f6931f; font-weight:bold;">
+		</p>-->
+		 
+		<div class="slider-vertical" id="slider-vertical" style="height:200px;"></div>
+		<div class="slider_values">
+			<div class="custom_values" data-value="3">Custom<%= image_tag 'icon-dropdown-arrow.png' %></div>
+			<div class="year_values" data-value="2">Year</div>
+			<div class="month_values" data-value="1">Month</div>
+			<div class="week_values" data-value="0">Week</div>
+		</div>
+	</div>
+	<div class="col-md-12 no_left_right_padding">
+		<div class="col-xs-2 performance-circle">
+			<%= image_tag 'performance-circle.png' %>
+		</div>
+		<div class="col-xs-2 performance-circle">
+			<%= image_tag 'performance-circle.png' %>
+		</div>
+		<div class="col-xs-2 performance-circle">
+			<%= image_tag 'performance-circle.png' %>
+		</div>
+		<div class="col-xs-2 performance-circle">
+			<%= image_tag 'performance-circle.png' %>
+		</div>
+		<div class="col-xs-3 no_left_right_padding pull-right">
+			<%= image_tag 'performance-right.png' %>
+		</div>
+	</div>
+	<div class="col-md-12 no_left_right_padding">
+		<table class="table performance-table">
+			<thead>
+				<th>Date & Time</th>
+				<th>Customer Name</th>
+				<th>Customer ID</th>
+				<th>Store ID</th>
+				<th>Invoice Paid</th>
+				<th>Rewards Earned</th>
+				<th>Rewards Redeemed</th>
+			</thead>
+			<tbody>
+				<tr>
+					<td>12 jul 14- 02pm</td>
+					<td>Jhon Smith</td>
+					<td>05685</td>
+					<td>05685</td>
+					<td>AED 2599.00</td>
+					<td>AED 05685.00</td>
+					<td>AED 05685.00</td>
+				</tr>
+				<tr>
+					<td>12 jul 14- 02pm</td>
+					<td>Jhon Smith</td>
+					<td>05685</td>
+					<td>05685</td>
+					<td>AED 2599.00</td>
+					<td>AED 05685.00</td>
+					<td>AED 05685.00</td>
+				</tr>
+				<tr>
+					<td>12 jul 14- 02pm</td>
+					<td>Jhon Smith</td>
+					<td>05685</td>
+					<td>05685</td>
+					<td>AED 2599.00</td>
+					<td>AED 05685.00</td>
+					<td>AED 05685.00</td>
+				</tr>
+				<tr>
+					<td>12 jul 14- 02pm</td>
+					<td>Jhon Smith</td>
+					<td>05685</td>
+					<td>05685</td>
+					<td>AED 2599.00</td>
+					<td>AED 05685.00</td>
+					<td>AED 05685.00</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	
+
+</div>
+
+<div class="modal fade" id="custome-date-range-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog w453px">
+    <div class="modal-content">
+    	<div class="calendar_content clearfix">
+	        <div class="pull-left" id="perf_start">Start</div>
+	        <div class="pull-right" id="perf_end">Till</div>
+      	</div>
+    	<input type="hidden" id="start_date" />
+    	<input type="hidden" id="end_date" />
+        <div class="modal-footer">
+       	  <button type="button" class="btn btn-primary" data-dismiss="modal">Save</button>
+        </div>
+    </div>
+  </div>
+</div>

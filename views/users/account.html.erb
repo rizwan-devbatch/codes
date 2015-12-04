@@ -1,0 +1,46 @@
+<div class="container-fluid">
+    <div class="row clearfix">
+	    <div class="col-xs-5 pull-left">
+		<%= simple_form_for current_user.company, url: users_account_save_path, :html => {:class=>"brands-form settings" } do |f| %>
+			<p class="brand-field-title"></p>
+			<div class="form-group">
+			    <%= f.input :name, label:"", autofocus: true, placeholder:"Tax" %>			   
+			</div>    
+			<div class="form-group">
+			  <label for="country">  Country</label>
+			  <%= f.country_select :country, priority: %w(US CA), prompt: 'Please select a country' %>
+		  	</div>
+		  	<div class="form-group">
+			  <div id="company_state_code_wrapper">
+			    <%= render partial: 'subregion_select', locals: {parent_region: f.object.country} %>
+			  </div>
+			</div>
+			<div class="form-group">
+				<%= f.input :city, label:' City' %>
+			</div>
+			<div class="form-group">
+			  <%= f.input :address_1, label:' Address Line1' %>
+			</div>
+			<div class="form-group">
+			  <%= f.input :address_2, label:' Address Line2' %>
+			</div>
+			<div class="form-group">
+			  <%= f.input :address_3, label:' Address Line3' %>
+			</div>
+			<div class="form-group">
+				<%= f.input :zip, label:' Zip' %>
+			</div>
+			<div class="form-group">
+				<%= f.input :phone_no, label:' Phone' %>	
+			</div>
+			<div class="form-group">
+				<%= f.input :fax, label:' Fax' %>	
+			</div>
+			<div class="form-group">
+				<input type="submit" class="btn" value="Submit" />
+			</div>
+		<% end %>
+	    </div>
+     <%= render partial: "filters" %>
+   </div>
+</div>	

@@ -1,0 +1,113 @@
+<div id="customers" class="container-fluid">
+      <div class="row">
+      <div class="col-xs-10 clearfix">
+   <% if current_user.has_role? :brandmanager %>   
+      <%= simple_form_for current_user, url: users_settings_save_path, :html => { :multipart => true, :class=>"brands-form settings" } do |f| %>
+      <div class="row">
+        <div class="col-xs-6">
+            <p>Marketers</p>
+            <div class="col-xs-6 pull-left">
+              <div id="marketers" class="form-group relative-radio-outer clearfix">
+                <%= f.check_box :marketer, class:"checkbox-hide" %>
+                <label class="checkbox" for="">
+                  <span class="checkbox-bg"></span> Own
+                </label>
+              </div>
+              <div id="marketers_others" class="settings_others">
+                <% i=0 %>
+                <% if @marketer.blank? %>
+                  <div class="form-group">
+                    <%= text_field_tag "marketers_email[]", nil, placeholder: 'Email' %><a id="add_marketers" class="add-remove-btn v-align-action-btn" href="javascript:void(0)" >+</a>
+                  </div>
+                <% else %>
+                  <% @marketer.each do |m| %>
+                    <div class="form-group">
+                      <%= text_field_tag "marketers_email[]", m.email, placeholder: 'Email' %>
+                      <% if i==0 %> 
+                        <a id="add_marketers" class="add-remove-btn v-align-action-btn" href="javascript:void(0)" >+</a>
+                      <% else %>
+                        <a onclick=remove_others_input($(this)) class="add-remove-btn v-align-action-btn" href="javascript:void(0)" >-</a>  
+                      <% end %>  
+                    </div>
+                  <% i=+1 %>
+                  <% end %>
+                <% end %>
+              </div>
+            </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-6">
+            <p>Approvers</p>
+            <div class="col-xs-6 pull-left">
+              <div id="approvers" class="form-group relative-radio-outer clearfix">
+                <%= f.check_box :approver, class:"checkbox-hide" %>
+                <label class="checkbox" for="">
+                  <span class="checkbox-bg"></span> Own
+                </label>
+              </div>
+              <div id="approvers_others" class="settings_others">
+                <% j=0 %>
+                <% if @approver.blank? %>
+                  <div class="form-group">
+                    <%= text_field_tag "approvers_email[]", nil, placeholder: 'Email' %><a id="add_approvers" class="add-remove-btn v-align-action-btn" href="javascript:void(0)" >+</a>
+                  </div>
+                <% else %>
+                  <% @approver.each do |a| %>
+                    <div class="form-group">
+                      <%= text_field_tag "approvers_email[]", a.email, placeholder: 'Email' %>
+                      <% if j==0 %>
+                        <a id="add_approvers" class="add-remove-btn v-align-action-btn" href="javascript:void(0)" >+</a>
+                      <% else %>
+                        <a onclick=remove_others_input($(this)) class="add-remove-btn v-align-action-btn" href="javascript:void(0)" >-</a>  
+                      <% end %>  
+                    </div>
+                  <% j=+1 %>  
+                  <% end %>
+                <% end %>    
+              </div>
+            </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-6">
+            <p>Cashier</p>
+            <div class="col-xs-6 pull-left">
+              <div id="cashiers" class="form-group relative-radio-outer clearfix">
+                <%= f.check_box :cashier, class:"checkbox-hide" %>
+                <label class="checkbox" for="">
+                  <span class="checkbox-bg"></span> Own
+                </label>
+              </div>
+              <div id="cashiers_others" class="settings_others">
+                <% k=0 %>
+                <% if @cashier.blank? %>
+                  <div class="form-group">
+                    <%= text_field_tag "cashiers_email[]", nil, placeholder: 'Email' %><a id="add_cashiers" class="add-remove-btn v-align-action-btn" href="javascript:void(0)" >+</a>
+                  </div>
+                <% else %>
+                  <% @cashier.each do |m| %>
+                    <div class="form-group">
+                      <%= text_field_tag "cashiers_email[]", m.email, placeholder: 'Email' %>
+                      <% if k==0 %> 
+                        <a id="add_cashiers" class="add-remove-btn v-align-action-btn" href="javascript:void(0)" >+</a>
+                      <% else %>
+                        <a onclick=remove_others_input($(this)) class="add-remove-btn v-align-action-btn" href="javascript:void(0)" >-</a>  
+                      <% end %>  
+                    </div>
+                  <% k=+1 %>
+                  <% end %>
+                <% end %>
+              </div>
+            </div>
+        </div>
+      </div>
+      <input type="submit" class="btn" value="Submit" />
+  <% end %> 
+  <% else %>
+       <p>Edit Your Profile If Needed By clicking on a link in right Panel</p>
+  <% end %>   
+  </div>
+       <%= render partial: "filters" %>
+    </div>
+</div> 

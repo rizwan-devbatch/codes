@@ -1,0 +1,16 @@
+ <div class="pull-left btn-row col-md-12">
+   <% if @brand.brand_type == 'single'%>
+     <%= link_to 'Back', edit_brand_path, class:'brand-submit' %>
+   <% else %>  
+     <%= link_to 'Back', edit_brand_group_path(@brand), class:'brand-submit' %>
+   <% end %>  
+    <% if @brand.status_caption == 'sent' %>
+        <%= link_to "Sent for Approval", "#", class:'brand-submit', disabled: true %>
+    <% elsif @brand.status_caption == 'approved' %>
+        <%= link_to "Approved", "#", class:'brand-submit', disabled: true %>
+    <% elsif @brand.status_caption == 'returned' %>
+        <%= link_to "Returned", "#", class:'brand-submit', disabled: true %>
+    <% else %>
+      <%= link_to "Send", send_approval_brand_path(@brand), class:'brand-submit' %>
+    <% end %>
+</div>

@@ -1,0 +1,51 @@
+<div class="modal fade startdate_modal date_model" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog w294px">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div style="display:none" id="prev_date" class="prev-btn"></div><h4 class="modal-title" id="myModalLabel">Start Date</h4><div id="next_date" class="next-btn"></div>
+      </div>
+      <div class="calendar-content">
+        <div class="" id="start_date_container">
+          <div id="start_date_calendar"></div>
+        </div>
+        <div style="display:none;" id="end_date_container">
+          <div class="relative-radio-outer full_width">
+              <%= f.check_box :indefinite, id: 'indefinite', class:"checkbox-hide" %>
+              <label class="checkbox" for="indefinite">
+                <span class="checkbox-bg"></span>Indefinite
+              </label>
+          </div>
+          <div id="end_date_calendar"></div>
+        </div>
+      </div>  
+    </div>
+  </div>
+</div>
+<script>
+  
+  $('.startdate_modal').on('hidden.bs.modal', function () {
+    $("#end_date_container").hide();
+    $("#myModalLabel").text("Start Date"); 
+    $("#start_date_container").show();
+    $('#start_date_calendar').datepicker('update', $('#start_date').val());
+  })
+  if ($("#prev_date").length) {
+    $("#prev_date").click(function(){
+      $(this).hide();
+      $('#next_date').show();
+      $('#end_date_container').hide();
+      $("#myModalLabel").text("Start Date");
+      $('#start_date_container').show();
+      $('#start_date_calendar').datepicker('update', $('#start_date').val());
+    });
+  } 
+  if ($("#next_date").length) {
+    $("#next_date").click(function(){
+      $(this).hide();
+      $('#prev_date').show();
+      $('#start_date_container').hide();
+      $("#myModalLabel").text("End Date");
+      $('#end_date_container').show();
+    });
+  }
+</script>

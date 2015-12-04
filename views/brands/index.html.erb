@@ -1,0 +1,31 @@
+<div id="customers" class="container-fluid">
+    <div class="row">
+        <div id="brands-list" class="col-xs-10 clearfix">
+        </div>
+        <%= render partial: "filters" %>
+    </div>
+</div>
+<div class="modal fade" id="form-new-brands-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog w294px">
+    <div class="modal-content">
+      <%= simple_form_for 'brand', remote: true, :html => {:id => "form-new-brands", :class => "brands-form" } do |f| %>
+       <div class="error_message"></div>
+      	<%= f.hidden_field :brand_type %>
+        <div class="form-group">
+          <label>Title</label>
+          <%= f.input_field :title, inline_label:"Title", required: true, :input_html => {autofocus: true},:id => "alert_title" %>
+        </div>
+        <div class="modal-footer text-center">
+       	  <%= f.button :submit, 'Save', class: 'btn btn-primary alert-btn' %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+<script>
+   $('.modal').on('shown.bs.modal', function () {
+    lastfocus = $(this);
+    $(this).find('input:text:visible:first').focus();
+  })
+</script>
+

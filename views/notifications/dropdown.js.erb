@@ -1,0 +1,10 @@
+if ( $( ".notification-menu" ).is( ":hidden" ) ) {
+	$( ".notification-menu" ).slideDown( "slow" );
+} else {
+	$( ".notification-menu" ).hide();
+}
+$('.notification-menu').html('<%= escape_javascript(render :partial => "dropdown_data") %>');
+$('body').click(function(){
+	$( ".notification-menu" ).hide();
+	$('.notification-menu').html('<li><%= image_tag "loading.gif" %></li><li class="divider"></li><li><a class="viewall_notifications" href="<%= notifications_path %>">View all</a></li>');	
+});

@@ -1,0 +1,1 @@
+$("form#form-new-property-<%= params[:id] %>").remove();

@@ -1,0 +1,41 @@
+<p><b><%= @message %></b></p>
+<p>---------------------------------------------------------</p>
+<%
+	order = @order
+%>
+<% if order %>
+<%
+	account_name = "N/A"
+	store_id = "N/A"
+	store = Store.find_by_id(order[:store_id])
+	if !store.nil?
+		store_id = store.id
+		account = store.sub_company
+		if !account.nil?
+			account_name = account.name
+		end
+	end
+	user_id = nil
+	user_name = nil
+	user_email = nil
+	user_phone = nil
+	user = WalletUser.find_by_id(order.wallet_user_id)
+	if !user.nil?
+		user_id = user.id
+		user_name = user.name
+		user_email = user.email
+		user_phone = user.phone
+	end
+	
+%>
+<p>Merchant: <%=  account_name %>(<%=  store_id %>)</p>
+<p>Order ID: <%= order[:id] %></p>
+<p>Order Total: <%= order[:total] %></p>
+<p>Payment: Pending</p>
+<p>Customer Name: <%= user_name %>(<%= user_id %>)</p>
+<p>Email: <%= user_email %></p>
+<p>Phone: <%= user_phone %></p>
+<p>---------------------------------------------------------</p>
+<% end %>
+<p>Keep Well,</p>
+<p>Street Scouts</p>

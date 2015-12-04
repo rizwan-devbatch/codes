@@ -1,0 +1,100 @@
+<div class="customer-list">
+    <div class="customer pull-left">
+      <% if current_user.has_role? :brandmanager %>
+        <div class="customer-inner-content bg-dashed">
+            <div class="half-segment">
+                <div class="cell2">
+                    <a href="javascript:void(0)" id="add-new-brand">
+                        <span class="icon icon-add"></span>
+                        <p>Add Supplier</p>
+                    </a>
+                </div>
+                <div class="cell2" style="border-top: 1px dashed #ccc;">
+                    <a href="javascript:void(0)" id="add-new-brand-group">
+                        <span class="icon icon-addgroup"></span>
+                        <p>Add a Supplier Group</p>
+                    </a>
+                </div>
+            </div> 
+        </div>
+      <% end %>  
+    </div>
+    <% if brands.count > 0 %>
+        <% brands.each do |brand| %>
+            <div class="customer pull-left">
+                <div class="customer-inner-content">
+                   <%# if brand.status_caption == 'approved' %>
+                    <!-- <a href="<%= performance_brand_path(brand) %>">
+                        <%# image = brand.logo.first %>
+                        <%# if !image.nil? %>
+                        <%#  else %>
+                          <%#= image_tag '236x157.gif' %>
+                        <%# end %>
+                    </a> -->
+                    <% if brand.brand_type == 'single' %>
+                     <a href="<%= edit_brand_path(brand) %>">
+                        <% image = brand.logo.first %>
+                        <% if !image.nil? %>
+                            <%= image_tag(image.image.remote_url, class: '') %>
+                        <%  else %>
+                          <%= image_tag '236x157.gif' %>
+                        <% end %>
+                    </a>
+                    <% else %>
+                     <a href="<%= edit_brand_group_path(brand) %>">
+                        <% image = brand.logo.first %>
+                        <% if !image.nil? %>
+                            <%= image_tag(image.image.remote_url, class: '') %>
+                        <%  else %>
+                          <%= image_tag '236x157.gif' %>
+                        <% end %>
+                    </a>
+                   <% end %> 
+                    <div class="customer-detail">
+                        <div class="clearfix">
+                            <div class="pull-left"><%= brand.title %></div>
+                            <div class="pull-right"><%= brand.products.size %></div>
+                        </div>
+                        <div class="clearfix">
+                            <% if !brand.blank? %>
+                                <div class="pull-left">
+                                  <%= link_to 'Compaigns +', new_campaign_path + '?campaign[brand_id]=' + brand.id.to_s, :remote => true %>
+                                </div>
+                                <div class="pull-right">NPI:<%= brand.id%></div>
+                              <% end %>  
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <% end %>
+    <% else %>
+        
+    <% end %>
+</div>
+<div class="row brands-list-paginate-ajax" style="align:right;">
+    <%= will_paginate brands, renderer: BootstrapPagination::Rails %>
+</div>
+<script>
+  if ($("#add-new-brand").length) {
+    $("#add-new-brand").click(function() {
+      $("#brand_brand_type").val("single");
+       $("#alert_title").attr("placeholder", "New Supplier Name")
+      $("#form-new-brands-modal").modal("show");
+    });
+  }
+  if ($("#add-new-brand-group").length) {
+    $("#add-new-brand-group").click(function() {
+      $("#brand_brand_type").val("group");
+       $("#alert_title").attr("placeholder", "New Supplier Group Name")
+      $("#form-new-brands-modal").modal("show");
+    });
+  }
+
+  $(".brands-list-paginate-ajax th a, .brands-list-paginate-ajax .pagination a").on("click", function(){
+    $.get(this.href, function(data) {
+      $("#brands-list").empty();
+      $("#brands-list").append(data.html);
+    });
+    return false;
+  });
+</script>
